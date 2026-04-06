@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import Editor, { OnMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
 import * as Y from 'yjs';
@@ -14,17 +14,17 @@ interface EditorProps {
 export default function CodeEditor({ doc, provider, language = 'javascript' }: EditorProps) {
     const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
     const bindingRef = useRef<MonacoBinding | null>(null);
-    // Track if binding was successfully created
-    const hasBindingRef = useRef(false);
+    const [editorMounted, setEditorMounted] = useState(false);
 
     const handleEditorDidMount: OnMount = useCallback((editorInstance) => {
         editorRef.current = editorInstance;
+        setEditorMounted(true);
     }, []);
 
     // Set up MonacoBinding when editor, doc, and provider are all ready
     useEffect(() => {
         const editorInstance = editorRef.current;
-        if (!editorInstance || !doc || !provider || hasBindingRef.current) return;
+        if (!editorInstance || !doc || !provider) return;
 
         const yText = doc.getText('content');
         bindingRef.current = new MonacoBinding(
@@ -33,7 +33,6 @@ export default function CodeEditor({ doc, provider, language = 'javascript' }: E
             new Set([editorInstance]),
             provider.awareness
         );
-        hasBindingRef.current = true;
 
         // Set initial content if the shared document is empty
         if (yText.length === 0) {
@@ -55,10 +54,9 @@ export default function CodeEditor({ doc, provider, language = 'javascript' }: E
             if (bindingRef.current) {
                 bindingRef.current.destroy();
                 bindingRef.current = null;
-                hasBindingRef.current = false;
             }
         };
-    }, [doc, provider]);
+    }, [doc, provider, editorMounted]);
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
