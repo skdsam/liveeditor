@@ -207,3 +207,30 @@ body {
 .login-card input::placeholder {
   color: #6e6e6e;
 }
+
+/* Remote cursor styles for y-monaco collaboration */
+.yRemoteSelection {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.yRemoteSelectionHead {
+  position: absolute;
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-radius: 2px;
+}
+
+.yRemoteSelectionHead::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -2px;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.yRemoteCaretCursor {
+  position: absolute;
+  border-left: 2px solid;
+  height: 1em;
+}

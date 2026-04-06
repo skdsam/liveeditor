@@ -59,7 +59,7 @@ export default function CodeEditor({ doc, provider, language = 'javascript' }: E
     }, [doc, provider, editorMounted]);
 
     return (
-        <div style={{ width: '100%', height: '100%' }}>
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             <Editor
                 height="100%"
                 language={language}
@@ -79,6 +79,9 @@ export default function CodeEditor({ doc, provider, language = 'javascript' }: E
                     cursorSmoothCaretAnimation: 'on',
                     smoothScrolling: true,
                     padding: { top: 10 },
+                    // Enable remote cursor rendering
+                    renderLineHighlight: 'all',
+                    overviewRulerBorder: false,
                 }}
             />
         </div>
