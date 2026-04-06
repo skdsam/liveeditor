@@ -1,0 +1,19 @@
+# Caddyfile for Live Code Editor
+# 
+# Usage:
+#   1. Edit yourdomain.com to your actual domain
+#   2. Run: caddy run
+#
+# For local development without HTTPS:
+#   localhost:3000 {
+#       reverse_proxy /ws 127.0.0.1:1234
+#       reverse_proxy localhost:3000
+#   }
+
+yourdomain.com {
+    # WebSocket proxy
+    reverse_proxy /ws 127.0.0.1:1234
+    
+    # Frontend static files
+    reverse_proxy localhost:3000
+}
