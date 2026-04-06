@@ -215,22 +215,26 @@ body {
 
 .yRemoteSelectionHead {
   position: absolute;
-  border-left: 2px solid;
-  border-top: 2px solid;
-  border-radius: 2px;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-radius: 1px;
+  height: 10px !important;
 }
 
 .yRemoteSelectionHead::after {
   content: '';
   position: absolute;
-  top: -5px;
-  left: -2px;
-  border: 2px solid;
+  top: -4px;
+  left: -1px;
+  border: 1px solid;
   border-radius: 50%;
+  width: 6px !important;
+  height: 6px !important;
 }
 
 .yRemoteCaretCursor {
   position: absolute;
-  border-left: 2px solid;
-  height: 1em;
+  border-left: 1px solid;
+  height: 10px !important;
+  width: 1px;
 }
